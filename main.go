@@ -44,12 +44,12 @@ func main() {
 	}))
 
 	log.Printf("INFO: Server started at http://%s:%s", host, port)
-	// 输出当前目录的绝对路径
-	dir, err := os.Getwd()
+	// 输出dir目录的绝对路径
+	absDir, err := filepath.Abs(dir)
 	if err != nil {
 		log.Fatalf("ERROR: Error getting current directory: %v", err)
 	}
-	log.Printf("INFO: Serving files from %s", dir)
+	log.Printf("INFO: Serving files from %s", absDir)
 	if err := http.ListenAndServe(host+":"+port, nil); err != nil {
 		log.Fatalf("ERROR: Error starting server: %v\nUsage: %s <HOST> <PORT>", err, os.Args[0])
 	}
