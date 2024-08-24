@@ -24,7 +24,7 @@ func main() {
 		port = os.Args[2]
 		dir = os.Args[3]
 	} else if len(os.Args) > 1 {
-		fmt.Println("Usage: " + os.Args[0] + " <HOST> <PORT> [<DIR>]")
+		fmt.Println("Usage: " + os.Args[0] + " <HOST> <PORT> [<ROOT_DIR>]")
 		return
 	}
 
