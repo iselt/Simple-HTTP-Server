@@ -1,4 +1,4 @@
-# .github/workflows/release.yaml
+# .github/workflows/go.yaml
 
 on:
   release:
