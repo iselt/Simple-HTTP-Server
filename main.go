@@ -12,8 +12,24 @@ import (
 const maxUploadSize = 1024 * 1024 * 1024 // 1 GB
 
 func main() {
+	// 启动服务器
+	host := "0.0.0.0"
+	port := "8080"
+	dir := "."
+	if len(os.Args) == 3 {
+		host = os.Args[1]
+		port = os.Args[2]
+	} else if len(os.Args) == 4 {
+		host = os.Args[1]
+		port = os.Args[2]
+		dir = os.Args[3]
+	} else if len(os.Args) > 1 {
+		fmt.Println("Usage: " + os.Args[0] + " <HOST> <PORT> [<DIR>]")
+		return
+	}
+
 	// 创建一个文件服务器，提供当前目录下的静态文件服务
-	fs := http.FileServer(http.Dir("."))
+	fs := http.FileServer(http.Dir(dir))
 
 	// 当方法为GET时，将请求交给文件服务器处理，当方法为PUT或POST时，交给上传处理函数处理
 	http.Handle("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -26,17 +42,6 @@ func main() {
 			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		}
 	}))
-
-	// 启动服务器
-	host := "0.0.0.0"
-	port := "8080"
-	if len(os.Args) > 2 {
-		host = os.Args[1]
-		port = os.Args[2]
-	} else if len(os.Args) > 1 {
-		fmt.Println("Usage: " + os.Args[0] + " <HOST> <PORT>")
-		return
-	}
 
 	log.Printf("INFO: Server started at http://%s:%s", host, port)
 	// 输出当前目录的绝对路径
