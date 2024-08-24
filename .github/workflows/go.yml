@@ -1,5 +1,3 @@
-# .github/workflows/go.yaml
-
 on:
   release:
     types: [created]
